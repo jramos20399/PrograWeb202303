@@ -9,7 +9,7 @@ namespace DAL.Interfaces
     public interface IUnidadDeTrabajo : IDisposable
     {
 
-        ICategoryDAL categoryDAL { get; }
+        ICategoryDAL _categoryDAL { get; }
         bool Complete();
     }
 }
