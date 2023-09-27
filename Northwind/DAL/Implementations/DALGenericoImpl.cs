@@ -25,8 +25,18 @@ namespace DAL.Implementations
 
         public bool Add(TEntity entity)
         {
-            
-            throw new NotImplementedException();
+
+            try
+            {
+                _Context.Add(entity);
+
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
         }
 
         public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
@@ -36,7 +46,17 @@ namespace DAL.Implementations
 
         public TEntity Get(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+
+
+                return _Context.Set<TEntity>().Find(id);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         public async Task<IEnumerable<TEntity>> GetAll()
@@ -54,12 +74,35 @@ namespace DAL.Implementations
 
         public bool Remove(TEntity entity)
         {
-            throw new NotImplementedException();
+
+            try
+            {
+                _Context.Set<TEntity>().Attach(entity);
+                _Context.Set<TEntity>().Remove(entity);
+
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
         }
 
         public bool Update(TEntity entity)
         {
-            throw new NotImplementedException();
+
+            try
+            {
+                _Context.Entry(entity).State = EntityState.Modified;
+
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
         }
     }
 }

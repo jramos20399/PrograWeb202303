@@ -14,6 +14,14 @@ namespace BackEnd.Services.Implementations
                 _unidadDeTrabajo = unidadDeTrabajo;
         }
 
+        public bool AddCategory(Category category)
+        {
+            bool resultado =_unidadDeTrabajo._categoryDAL.Add(category);
+            _unidadDeTrabajo.Complete();
+
+            return resultado;
+
+        }
 
         public async Task<IEnumerable<Category>> GetCategoriesAsync()
         {

@@ -35,8 +35,12 @@ namespace BackEnd.Controllers
 
         // POST api/<CategoryController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult Post([FromBody] Category category)
         {
+
+            _categoryService.AddCategory(category);
+            return Ok(category);
+
         }
 
         // PUT api/<CategoryController>/5
