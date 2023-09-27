@@ -1,4 +1,5 @@
-﻿using BackEnd.Services.Interfaces;
+﻿using BackEnd.Models;
+using BackEnd.Services.Interfaces;
 using Entities.Entities;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,6 +14,28 @@ namespace BackEnd.Controllers
 
         public ICategoryService _categoryService;
 
+        private Category Convertir(CategoryModel category)
+        {
+            return new Category
+            {
+                CategoryId = category.CategoryId,
+                Description = category.Description,
+                CategoryName = category.CategoryName
+            };
+        
+        }
+
+
+        private CategoryModel Convertir(Category category)
+        {
+            return new CategoryModel
+            {
+                CategoryId = category.CategoryId,
+                Description = category.Description,
+                CategoryName = category.CategoryName
+            };
+
+        }
 
         public CategoryController(ICategoryService categoryService)
         {
@@ -21,9 +44,18 @@ namespace BackEnd.Controllers
 
         // GET: api/<CategoryController>
         [HttpGet]
-        public async Task<IEnumerable<Category>> Get()
+        public IActionResult Get()
         {
-            return await _categoryService.GetCategoriesAsync();
+            IEnumerable<Category> lista =  _categoryService.GetCategoriesAsync().Result; 
+            List<CategoryModel> categories =  new List<CategoryModel>();
+
+            foreach (var item in lista)
+            {
+                categories.Add(Convertir(item));
+
+            }
+
+            return Ok(categories);
         }
 
         // GET api/<CategoryController>/5
@@ -31,28 +63,31 @@ namespace BackEnd.Controllers
         public IActionResult Get(int id)
         {
             Category category = _categoryService.GetById(id);
+            CategoryModel categoryModel = Convertir(category);
 
-
-            return Ok(category);
+            return Ok(categoryModel);
         }
 
         // POST api/<CategoryController>
         [HttpPost]
-        public IActionResult Post([FromBody] Category category)
+        public IActionResult Post([FromBody] CategoryModel category)
         {
-
-            _categoryService.AddCategory(category);
-            return Ok(category);
+            Category entity = Convertir(category);
+            _categoryService.AddCategory(entity);
+            return Ok(Convertir(entity));
 
         }
 
         // PUT api/<CategoryController>/5
         [HttpPut]
-        public IActionResult Put( [FromBody] Category category)
+        public IActionResult Put( [FromBody] CategoryModel category)
         {
-            _categoryService.UpdateCategory(category);
-            return Ok(category);
+            Category entity = Convertir(category);
+            _categoryService.UpdateCategory(entity);
+            return Ok(Convertir(entity));
         }
+
+
 
         // DELETE api/<CategoryController>/5
         [HttpDelete("{id}")]
