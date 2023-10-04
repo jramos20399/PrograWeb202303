@@ -4,17 +4,19 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Configuration;
+using FrontEnd.Helpers.Interfaces;
 
-namespace FrontEnd.Helpers
+namespace FrontEnd.Helpers.Implementations
 {
 
-    public class ServiceRepository
+    public class ServiceRepository : IServiceRepository
     {
         public HttpClient Client { get; set; }
 
-        public ServiceRepository()
+        public ServiceRepository(HttpClient _client
+            )
         {
-            Client = new HttpClient();
+            Client = _client;
             Client.BaseAddress = new Uri("http://localhost:5031");
 
         }
