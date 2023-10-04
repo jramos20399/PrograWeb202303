@@ -1,4 +1,5 @@
 ﻿using FrontEnd.Helpers.Implementations;
+using FrontEnd.Helpers.Interfaces;
 using FrontEnd.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -7,10 +8,22 @@ namespace FrontEnd.Controllers
 {
     public class CategoryController : Controller
     {
+
+        ICategoryHelper categoryHelper;
+
+
+        public CategoryController(ICategoryHelper _categoryHelper)
+
+        {
+            categoryHelper = _categoryHelper;
+        }
+
+
+
         // GET: CategoryController
         public ActionResult Index()
         {
-            CategoryHelper categoryHelper = new CategoryHelper();
+           
 
             List<CategoryViewModel> categories = categoryHelper.GetAll();
 
@@ -20,7 +33,8 @@ namespace FrontEnd.Controllers
         // GET: CategoryController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            CategoryViewModel category = categoryHelper.GetById(id);
+            return View(category);
         }
 
         // GET: CategoryController/Create
@@ -32,10 +46,12 @@ namespace FrontEnd.Controllers
         // POST: CategoryController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(CategoryViewModel category)
         {
             try
             {
+                categoryHelper.AddCategory(category);
+
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -47,16 +63,18 @@ namespace FrontEnd.Controllers
         // GET: CategoryController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            CategoryViewModel category = categoryHelper.GetById(id);
+            return View(category);
         }
 
         // POST: CategoryController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(CategoryViewModel category)
         {
             try
             {
+                CategoryViewModel categoryViewModel = categoryHelper.EditCategory(category);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -68,16 +86,18 @@ namespace FrontEnd.Controllers
         // GET: CategoryController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            CategoryViewModel category = categoryHelper.GetById(id);
+            return View(category);
         }
 
         // POST: CategoryController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(CategoryViewModel category)
         {
             try
             {
+                categoryHelper.DeleteCategory(category.CategoryId);
                 return RedirectToAction(nameof(Index));
             }
             catch

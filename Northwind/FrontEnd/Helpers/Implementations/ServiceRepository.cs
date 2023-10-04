@@ -13,8 +13,7 @@ namespace FrontEnd.Helpers.Implementations
     {
         public HttpClient Client { get; set; }
 
-        public ServiceRepository(HttpClient _client
-            )
+        public ServiceRepository(HttpClient _client)
         {
             Client = _client;
             Client.BaseAddress = new Uri("http://localhost:5031");
