@@ -6,6 +6,7 @@ namespace FrontEnd.Helpers
     public class CategoryHelper
     {
 
+        //A propósito para causar conflicto
         ServiceRepository _repository;
 
         public CategoryHelper()
