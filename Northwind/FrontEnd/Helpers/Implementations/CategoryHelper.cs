@@ -1,20 +1,23 @@
-﻿using FrontEnd.Models;
+﻿using FrontEnd.Helpers.Interfaces;
+using FrontEnd.Models;
 using Newtonsoft.Json;
 
-namespace FrontEnd.Helpers
+namespace FrontEnd.Helpers.Implementations
 {
-    public class CategoryHelper
+    public class CategoryHelper: ICategoryHelper
     {
 
-        //A propósito para causar conflicto
-        ServiceRepository _repository;
+        IServiceRepository _repository;
 
-        public CategoryHelper()
+        public CategoryHelper(IServiceRepository serviceRepository)
         {
-                _repository = new ServiceRepository();
+            _repository = serviceRepository;
         }
 
-
+        public CategoryViewModel AddCategory(CategoryViewModel categoryViewModel)
+        {
+            throw new NotImplementedException();
+        }
 
         public List<CategoryViewModel> GetAll()
         {
@@ -22,7 +25,7 @@ namespace FrontEnd.Helpers
             List<CategoryViewModel> lista = new List<CategoryViewModel>();
 
             HttpResponseMessage responseMessage = _repository.GetResponse("api/Category");
-            if (responseMessage!=null)
+            if (responseMessage != null)
             {
                 var content = responseMessage.Content.ReadAsStringAsync().Result;
                 lista = JsonConvert.DeserializeObject<List<CategoryViewModel>>(content);
