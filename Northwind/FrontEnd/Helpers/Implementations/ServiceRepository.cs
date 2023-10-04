@@ -13,10 +13,12 @@ namespace FrontEnd.Helpers.Implementations
     {
         public HttpClient Client { get; set; }
 
-        public ServiceRepository(HttpClient _client)
+        public ServiceRepository(HttpClient _client, IConfiguration configuration)
         {
             Client = _client;
-            Client.BaseAddress = new Uri("http://localhost:5031");
+            string baseUrl = configuration.GetValue<string>("BackEnd:Url");
+
+            Client.BaseAddress = new Uri(baseUrl);
 
         }
         public HttpResponseMessage GetResponse(string url)
