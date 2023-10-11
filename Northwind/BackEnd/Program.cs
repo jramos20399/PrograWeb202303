@@ -20,6 +20,10 @@ builder.Services.AddScoped<IUnidadDeTrabajo, UnidadDeTrabajo>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ISupplierDAL, SupplierDALImpl>() ;
 builder.Services.AddScoped<ISupplierService, SupplierService>();
+builder.Services.AddScoped<IProductDAL  , ProductDALImpl>();
+builder.Services.AddScoped<IProductService, ProductService>();
+
+
 
 
 #endregion

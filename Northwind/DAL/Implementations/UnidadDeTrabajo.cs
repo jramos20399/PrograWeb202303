@@ -12,6 +12,7 @@ namespace DAL.Implementations
     {
         public ICategoryDAL _categoryDAL { get;  }
         public ISupplierDAL _supplierDAL { get; }
+        public IProductDAL _productDAL { get; }
 
        
 
@@ -19,11 +20,13 @@ namespace DAL.Implementations
 
         public UnidadDeTrabajo(NorthWindContext context,
                                 ICategoryDAL categoryDAL,
-                                ISupplierDAL supplierDAL)
+                                ISupplierDAL supplierDAL,
+                                IProductDAL productDAL)
         {
             _context = context;
             _categoryDAL = categoryDAL;
             _supplierDAL = supplierDAL;
+            _productDAL = productDAL;
         }
 
 
