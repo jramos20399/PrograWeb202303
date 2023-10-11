@@ -11,16 +11,19 @@ namespace DAL.Implementations
     public class UnidadDeTrabajo : IUnidadDeTrabajo
     {
         public ICategoryDAL _categoryDAL { get;  }
+        public ISupplierDAL _supplierDAL { get; }
 
        
 
         private readonly NorthWindContext _context;
 
         public UnidadDeTrabajo(NorthWindContext context,
-                                ICategoryDAL categoryDAL)
+                                ICategoryDAL categoryDAL,
+                                ISupplierDAL supplierDAL)
         {
             _context = context;
             _categoryDAL = categoryDAL;
+            _supplierDAL = supplierDAL;
         }
 
 

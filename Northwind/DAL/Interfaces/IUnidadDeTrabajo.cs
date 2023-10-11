@@ -10,6 +10,7 @@ namespace DAL.Interfaces
     {
 
         ICategoryDAL _categoryDAL { get; }
+        ISupplierDAL _supplierDAL { get; }
         bool Complete();
     }
 }
