@@ -13,6 +13,7 @@ namespace BackEnd.Controllers
     {
 
         public ICategoryService _categoryService;
+        ILogger<CategoryController> _logger;
 
         private Category Convertir(CategoryModel category)
         {
@@ -37,15 +38,17 @@ namespace BackEnd.Controllers
 
         }
 
-        public CategoryController(ICategoryService categoryService)
+        public CategoryController(ICategoryService categoryService, ILogger<CategoryController> logger)
         {
                 _categoryService = categoryService;
+            _logger = logger;
         }
 
         // GET: api/<CategoryController>
         [HttpGet]
         public IActionResult Get()
         {
+            _logger.LogError("***********PRUEBA ERROR **************");
             IEnumerable<Category> lista =  _categoryService.GetCategoriesAsync().Result; 
             List<CategoryModel> categories =  new List<CategoryModel>();
 
@@ -62,6 +65,7 @@ namespace BackEnd.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
+            _logger.LogInformation("***********PRUEBA INFROMACION  **************");
             Category category = _categoryService.GetById(id);
             CategoryModel categoryModel = Convertir(category);
 

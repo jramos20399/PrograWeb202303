@@ -3,8 +3,27 @@ using BackEnd.Services.Interfaces;
 using DAL.Implementations;
 using DAL.Interfaces;
 using Entities.Entities;
+using Microsoft.Data.SqlClient;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
+#region Serilog
+
+    builder.Logging.ClearProviders();
+    builder.Logging.AddConsole();
+    builder.Host.UseSerilog((ctx, lc) =>lc
+            .WriteTo.File("logs/logsBackEnd.txt", rollingInterval: RollingInterval.Day)
+            .MinimumLevel.Information()
+            
+        
+        
+        
+        );
+
+
+#endregion
+
 
 // Add services to the container.
 
