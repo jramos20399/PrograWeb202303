@@ -3,6 +3,7 @@ using BackEnd.Services.Interfaces;
 using DAL.Implementations;
 using DAL.Interfaces;
 using Entities.Entities;
+using Entities.Utilities;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -35,15 +36,17 @@ builder.Services.AddSwaggerGen();
 
 #region Dependency Injection
 
+string connString = builder
+                            .Configuration
+                            .GetConnectionString("DefeaulConnection");
+
 
 builder.Services.AddDbContext<NorthWindContext>(options =>
                         options.UseSqlServer(
-                            builder
-                            .Configuration
-                            .GetConnectionString("DefeaulConnection")
+                           connString
                             ));
 
-
+Util.ConnectionString = connString;
 
 
 builder.Services.AddScoped<ICategoryDAL, CategoryDALImpl>();

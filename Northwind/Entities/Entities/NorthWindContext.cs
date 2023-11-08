@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Entities.Utilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -9,6 +10,8 @@ namespace Entities.Entities
     {
         public NorthWindContext()
         {
+            var optionBuilder = new DbContextOptionsBuilder<NorthWindContext>();
+            optionBuilder.UseSqlServer(Util.ConnectionString);
         }
 
         public NorthWindContext(DbContextOptions<NorthWindContext> options)
