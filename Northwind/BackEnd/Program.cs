@@ -38,7 +38,7 @@ builder.Services.AddSwaggerGen();
 
 string connString = builder
                             .Configuration
-                            .GetConnectionString("DefeaulConnection");
+                            .GetConnectionString("DefaultConnection");
 
 
 builder.Services.AddDbContext<NorthWindContext>(options =>
