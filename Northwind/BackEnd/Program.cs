@@ -4,6 +4,7 @@ using DAL.Implementations;
 using DAL.Interfaces;
 using Entities.Entities;
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -33,7 +34,18 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 #region Dependency Injection
-builder.Services.AddDbContext<NorthWindContext>();
+
+
+builder.Services.AddDbContext<NorthWindContext>(options =>
+                        options.UseSqlServer(
+                            builder
+                            .Configuration
+                            .GetConnectionString("DefeaulConnection")
+                            ));
+
+
+
+
 builder.Services.AddScoped<ICategoryDAL, CategoryDALImpl>();
 builder.Services.AddScoped<IUnidadDeTrabajo, UnidadDeTrabajo>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
