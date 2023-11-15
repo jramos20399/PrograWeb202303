@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using Entities.Utilities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Entities.Entities
 {
-    public partial class NorthWindContext : DbContext
+    public partial class NorthWindContext : IdentityDbContext<ApplicationUser>
     {
         public NorthWindContext()
         {
@@ -56,6 +57,8 @@ namespace Entities.Entities
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<AlphabeticalListOfProduct>(entity =>
             {
                 entity.HasNoKey();
