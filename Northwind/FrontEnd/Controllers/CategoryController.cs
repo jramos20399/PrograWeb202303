@@ -13,6 +13,7 @@ namespace FrontEnd.Controllers
     {
 
         ICategoryHelper categoryHelper;
+        public string Token { get; set; }
 
 
         public CategoryController(ICategoryHelper _categoryHelper)
@@ -26,7 +27,8 @@ namespace FrontEnd.Controllers
         // GET: CategoryController
         public ActionResult Index()
         {
-           
+           Token = HttpContext.Session.GetString("token");
+            categoryHelper.Token = Token;
 
             List<CategoryViewModel> categories = categoryHelper.GetAll();
 

@@ -3,7 +3,7 @@
     public interface IServiceRepository
     {
 
-
+        HttpClient Client { get; set; }
 
         HttpResponseMessage GetResponse(string url);
         HttpResponseMessage PutResponse(string url, object model);

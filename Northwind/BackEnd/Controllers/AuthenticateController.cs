@@ -90,5 +90,23 @@ namespace BackEnd.Controllers
             return Ok(new Response { Status = "Success", Message = "User created successfully!" });
         }
 
+        [HttpPost]
+        [Route("getUser")]
+        public async Task<IActionResult> GetUser([FromBody] LoginModel model)
+        {
+            var user = await userManager.FindByNameAsync(model.Username);
+            if (user != null)
+            {
+                var userRoles = await userManager.GetRolesAsync(user);
+
+
+                model.Roles = userRoles.ToList();
+
+
+                return Ok(model);
+            }
+            return Unauthorized();
+        }
+
     }
 }

@@ -7,6 +7,8 @@ namespace FrontEnd.Helpers.Implementations
     public class CategoryHelper : ICategoryHelper
     {
 
+        public string Token { get; set; }
+
         IServiceRepository _repository;
 
         public CategoryHelper(IServiceRepository serviceRepository)
@@ -57,6 +59,10 @@ namespace FrontEnd.Helpers.Implementations
 
         public List<CategoryViewModel> GetAll()
         {
+
+            _repository.Client.DefaultRequestHeaders.Authorization =
+                new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", Token);
+
 
             List<CategoryViewModel> lista = new List<CategoryViewModel>();
 
