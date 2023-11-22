@@ -18,6 +18,8 @@ namespace FrontEnd.Helpers.Implementations
             Client = _client;
             string baseUrl = configuration.GetValue<string>("BackEnd:Url");
 
+            Client.DefaultRequestHeaders.Add("Apikey", "c42c1e5d");
+
             Client.BaseAddress = new Uri(baseUrl);
 
         }
