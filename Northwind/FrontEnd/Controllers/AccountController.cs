@@ -93,6 +93,11 @@ namespace FrontEnd.Controllers
            
         }
 
+        public async Task<IActionResult> LogOut()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return LocalRedirect("/");
+        }
 
 
     }
